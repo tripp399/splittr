@@ -1,6 +1,6 @@
-<h2>Login</h2>
+<h2>Sign Up!</h2>
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit(signUpForm.value)">
 
     <div class="form-group">
         <label for="username">
@@ -18,10 +18,9 @@
 
     <div class="form-group">
         <button class="button" type="submit" class="btn btn-primary">
-            Log In
+            Sign Up
         </button>
-        <a routerLink="/signup" class="btn btn-link">Sign Up</a>
+        <a routerLink="/login" class="btn btn-link">Go back to login</a>
     </div>
-    
 
 </form>

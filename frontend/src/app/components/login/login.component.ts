@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-// import * as crypto from 'crypto';
+import { sha256 } from 'js-sha256';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.authenticationService.test());
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -35,12 +34,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    // const hash = crypto.createHash('sha256');
-    // const pwHash: string = hash.update(this.loginForm.controls.password.value)
-    //                         .digest('hex');
+    const pwHash: string = sha256(this.loginForm.controls.password.value);
 
     this.authenticationService
-      .login( this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+      .login(this.loginForm.controls.username.value, pwHash)
       .pipe(first())
       .subscribe(
         data => {

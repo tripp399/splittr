@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { flatMap, materialize, delay, dematerialize } from 'rxjs/operators';
+import { User } from '../models/user';
 
 const users = [
     {
@@ -15,7 +16,6 @@ const users = [
         pwHash: '1ba3d16e9881959f8c9a9762854f72c6e6321cdd44358a10a4e939033117eab9'
     }
 ];
-
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -32,6 +32,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             switch (true) {
                 case req.url.endsWith('/users/authenticate') && req.method === 'POST':
                     return authenticate();
+                case req.url.endsWith('/users/register') && req.method === 'POST':
+                    return register(req.body);
                 default:
                     return next.handle(req);
             }
@@ -54,12 +56,23 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             });
         }
 
+        function error(message: string) {
+            return throwError({ error: { message } });
+        }
+
         function ok(body?: any) {
             return of(new HttpResponse({ status: 200, body}));
         }
 
-        function error(message: string) {
-            return throwError({ error: { message } });
+        function register(user) {
+            user = { id: null, username: user.username, pwHash: user.pwHash };
+            if (users.find(x => x.username === user.username)) {
+                return error('Username "' + user.username + '" is already taken');
+            }
+            user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
+            users.push(user);
+
+            return ok();
         }
     }
 }
