@@ -8,11 +8,13 @@ class AuthViewsMethods(EndpointDataHandler):
     def login(self):
         username = self.data['username']
         pwHash = self.data['pwHash']
-        user: User = User.query.filter_by(username=username).first()
-        
+        try:
+            user: User = User.query.filter_by(username=username).first()
+        except Exception:
+            raise Exception()
+
         if not user or not user.authenticate(pwHash):
             raise IncorrectLoginException(status_code=401, message='Incorrect Username or password')
-            # raise Exception()
         
         return self.generate_dict_with_token(user), 200
 
