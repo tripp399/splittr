@@ -8,9 +8,9 @@ from api.models import User
 
 app = Flask('splittr')
 app.config.from_object(Config)
+app.app_context().push()
 api = Api(app)
 db.init_app(app)
-
 migrate = Migrate(app, db)
 
 CORS(app, origins='*')

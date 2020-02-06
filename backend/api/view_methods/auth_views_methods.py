@@ -12,6 +12,7 @@ class AuthViewsMethods(EndpointDataHandler):
         
         if not user or not user.authenticate(pwHash):
             raise IncorrectLoginException(status_code=401, message='Incorrect Username or password')
+            # raise Exception()
         
         return self.generate_dict_with_token(user), 200
 
