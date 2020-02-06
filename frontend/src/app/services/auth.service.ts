@@ -9,7 +9,7 @@ import { User } from '../models/user';
 })
 export class AuthService {
 
-  private apiUrl = 'https://localhost';
+  private apiUrl = 'http://localhost:5000';
   private currentUserSubject: BehaviorSubject<User>;
   // public currentUser: Observable<User>;
 
@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   login(username: string, pwHash: string) {
-    return this.http.post<User>(this.apiUrl + '/users/authenticate', {username, pwHash})
+    return this.http.post<User>(this.apiUrl + '/login', {username, pwHash})
       .pipe(
         map(user => {
           if (user && user.token) {
