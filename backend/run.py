@@ -13,5 +13,11 @@ db.init_app(app)
 
 migrate = Migrate(app, db)
 
+CORS(app, origins='*')
+
+from api.register_views import register_views
+
+register_views(app, api)
+
 if __name__ == '__main__':
     app.run(debug=True)

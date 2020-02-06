@@ -12,4 +12,3 @@ class EndpointDataHandler():
             self.data = request_util.get_query_params_from_request()
         else:
             self.data = request_util.get_data_from_request()
-

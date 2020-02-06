@@ -31,6 +31,7 @@ export class SignupComponent implements OnInit {
     console.log('signup component');
     this.signUpForm = this.formBuilder.group({
       username: ['', Validators.required],
+      name: ['', Validators.required],
       password: ['', Validators.required]
     });
     this.returnUrl = '/login';
@@ -40,11 +41,15 @@ export class SignupComponent implements OnInit {
     const pwHash: string = sha256(this.signUpForm.controls.password.value);
 
     this.userService
-      .register(this.signUpForm.controls.username.value, pwHash)
-      .pipe(first())
+      .register(
+        this.signUpForm.controls.username.value,
+        this.signUpForm.controls.name.value,
+        pwHash
+      ).pipe(first())
       .subscribe(
-        data => {
+        res => {
             this.router.navigate([this.returnUrl]);
+            console.log(res)
         },
         error => {
             console.log(error);

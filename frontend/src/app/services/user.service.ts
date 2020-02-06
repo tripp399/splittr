@@ -7,11 +7,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserService {
 
-  apiUrl: string = 'https://localhost';
+  apiUrl: string = 'http://localhost:5000';
 
   constructor(private http: HttpClient) { }
 
-  register(username: string, pwHash: string) {
-    return this.http.post(this.apiUrl + '/users/register', { username, pwHash });
+  register(username: string, name: string, pwHash: string) {
+    return this.http.post(this.apiUrl + '/signup', { username, name, pwHash });
   }
 }

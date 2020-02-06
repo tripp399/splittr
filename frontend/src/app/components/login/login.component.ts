@@ -40,8 +40,9 @@ export class LoginComponent implements OnInit {
       .login(this.loginForm.controls.username.value, pwHash)
       .pipe(first())
       .subscribe(
-        data => {
+        res => {
             this.router.navigate([this.returnUrl]);
+            console.log(res);
         },
         error => {
             console.log(error);

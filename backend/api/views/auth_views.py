@@ -1,15 +1,15 @@
 from flask_restful import Resource
+from api.view_methods.auth_views_methods import AuthViewsMethods
 
 def add_resource(api):
     # todo
-    pass
+    api.add_resource(Login, '/login')
+    api.add_resource(Signup, '/signup')
 
-class Login(Resource):
+class Login(AuthViewsMethods, Resource):
     def post(self):
-        # todo
-        pass
+        return self.login()
 
-class Signup(Resource):
+class Signup(AuthViewsMethods, Resource):
     def post(self):
-        # todo
-        pass
+        return self.signup()
