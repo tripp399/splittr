@@ -128,5 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# pylint setting
+# pylint settings
 .pylintrc
+
+# editor settings
+.vscode
