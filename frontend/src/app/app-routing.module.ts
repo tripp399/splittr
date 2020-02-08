@@ -4,12 +4,15 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './_helpers/auth-guard';
 import { SignupComponent } from './components/signup/signup.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 
 const routes: Routes = [
   { path: 'dash', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'landing', component: LandingComponent},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent},
+
 
   // redirections
   { path: '', redirectTo: 'dash', pathMatch: 'full'},

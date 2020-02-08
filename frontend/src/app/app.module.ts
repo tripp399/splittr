@@ -11,13 +11,18 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FakeBackendInterceptor } from './_helpers/fake-backend';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './components/signup/signup.component';
+import { MatMenuModule, MatButtonModule, MatSidenavModule } from '@angular/material';
+import { HeaderComponent } from './components/header/header.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    SignupComponent
+    SignupComponent,
+    HeaderComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,10 @@ import { SignupComponent } from './components/signup/signup.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatSidenavModule
   ],
   providers: [
     AuthService,
