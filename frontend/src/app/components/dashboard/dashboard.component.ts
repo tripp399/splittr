@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
 
   currentUser: User;
 
-  constructor(private authenticationServce: AuthService, private router: Router) { 
+  constructor(private authenticationServce: AuthService, private router: Router) {
     this.currentUser = this.authenticationServce.currentUserValue;
   }
 
