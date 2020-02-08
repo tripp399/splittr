@@ -14,17 +14,11 @@ export class DashboardComponent implements OnInit {
 
   currentUser: User;
 
-  constructor(private authenticationServce: AuthService, private router: Router) {
+  constructor(private authenticationServce: AuthService) {
     this.currentUser = this.authenticationServce.currentUserValue;
   }
 
   ngOnInit() {
-  }
-
-  logout() {
-    console.log('logging out');
-    this.authenticationServce.logout();
-    this.router.navigate(['/landing']);
   }
 
 }
