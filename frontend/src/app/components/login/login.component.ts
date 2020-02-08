@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-    this.returnUrl = '/';
+    this.returnUrl = '/user';
   }
 
   login() {
