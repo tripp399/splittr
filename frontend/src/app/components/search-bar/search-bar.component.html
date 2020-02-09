@@ -1,0 +1,13 @@
+<div class="field">
+    <label class="label">
+        Search Users
+    </label>
+    <div class="control">
+        <input class="input" type="text" placeholder="username" matInput [matAutocomplete]="auto" [formControl]="searchInput">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of searchResult" [value]="option" (click)="sendValue()">
+              <span>{{ option.name }}</span>
+            </mat-option>
+        </mat-autocomplete>
+    </div>
+</div>

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router, Event } from '@angular/router';
+import { Router, Event, NavigationStart } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { filter, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,15 +12,16 @@ import { Router, Event } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private authenticationServce: AuthService, private router: Router) { }
+  currentUser: User;
 
-  ngOnInit() {
+  constructor(private authenticationServce: AuthService) {
+    this.currentUser = this.authenticationServce.currentUserValue;
   }
 
-  logout() {
-    console.log('logging out');
-    this.authenticationServce.logout();
-    this.router.navigate(['/login']);
+  ngOnInit() {
+    this.authenticationServce.currentUser.subscribe(
+      currentUser => this.currentUser = currentUser
+    );
   }
 
 }

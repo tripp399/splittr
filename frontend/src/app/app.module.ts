@@ -11,21 +11,43 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FakeBackendInterceptor } from './_helpers/fake-backend';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './components/signup/signup.component';
+import {
+  MatMenuModule, MatButtonModule, MatSidenavModule,
+  MatFormFieldModule, MatInputModule, MatAutocompleteModule
+} from '@angular/material';
+import { LandingComponent } from './components/landing/landing.component';
+import { AppHeaderComponent } from './components/_headers/app-header/app-header.component';
+import { SiteHeaderComponent } from './components/_headers/site-header/site-header.component';
+import { AppLayoutComponent } from './components/_layouts/app-layout/app-layout.component';
+import { SiteLayoutComponent } from './components/_layouts/site-layout/site-layout.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    AppHeaderComponent,
     DashboardComponent,
-    SignupComponent
+    LandingComponent,
+    LoginComponent,
+    SignupComponent,
+    SiteHeaderComponent,
+    AppLayoutComponent,
+    SiteLayoutComponent,
+    SearchBarComponent,
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule,
+    BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    HttpClientModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatSidenavModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule
   ],
   providers: [
     AuthService,

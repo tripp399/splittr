@@ -1,0 +1,62 @@
+<div class="navbar is-primary">
+    <div class="navbar-brand">
+        <a class="navbar-item" routerLink="/dash">
+            Splittr
+        </a>
+    </div>
+
+    <div class="navbar-start" (click)="toggleModal()">
+        <a class="navbar-item">
+            Create Group
+        </a>
+    </div>
+
+    <div class="navbar-end">
+        <div class="navbar-item">
+            <div class=buttons>
+                <button class="button is-light" type="button" (click)="logout()">
+                    Log Out
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" [ngClass]="{'is-active': modalToggle === true}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Create Group</p>
+                <button class="delete" aria-label="close" (click)="toggleModal()"></button>
+            </header>
+
+            <section class="modal-card-body">
+                <!-- Content ... -->
+                <div class="field">
+                    <label class="label">
+                        Name
+                    </label>
+                    <div class="control">
+                        <input class="input" id="text" type="text" [formControl]="groupName">
+                    </div>
+                </div>
+                <br />
+                <app-search-bar (searchEvent)="receiveValue($event)"></app-search-bar>
+                <button class="button" (click)="addUserToCreateGroup()">Add User</button>
+                <hr class="navbar-divider">
+                <div class="list">
+                    <ul>
+                        <li class="list-item" *ngFor="let user of groupUsers">
+                            <span>{{user.name}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </section>
+
+            <footer class="modal-card-foot">
+                <button class="button is-success" (click)="createGroup()">Create group</button>
+                <button class="button" (click)="toggleModal()">Cancel</button>
+            </footer>
+        </div>
+    </div>
+</div>
