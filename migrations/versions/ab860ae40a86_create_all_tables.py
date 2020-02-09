@@ -1,8 +1,8 @@
-"""user, group, group_membership, expense, expense_share, payment tables creation
+"""create all tables
 
-Revision ID: f47531e5886c
+Revision ID: ab860ae40a86
 Revises: 
-Create Date: 2020-02-05 22:03:36.674300
+Create Date: 2020-02-09 16:30:19.838140
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f47531e5886c'
+revision = 'ab860ae40a86'
 down_revision = None
 branch_labels = None
 depends_on = None
