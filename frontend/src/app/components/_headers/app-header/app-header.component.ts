@@ -12,7 +12,7 @@ import { GroupService } from 'src/app/services/group.service';
 })
 export class AppHeaderComponent implements OnInit {
 
-  modalToggle: boolean = false;
+  modalToggle = false;
   searchResult: User;
   groupName: FormControl;
   groupUsers = new Set<User>();

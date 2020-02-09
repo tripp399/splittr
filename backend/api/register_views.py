@@ -22,7 +22,6 @@ def register_views(app: Flask, api):
         return Response("Backend Error", 500)
 
     @app.errorhandler(APIException)
-    @app.errorhandler(401)
     def handle_api_exception(error: APIException):
         response = jsonify(error.to_dict())
         response.status_code = error.status_code
