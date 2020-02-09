@@ -1,3 +1,31 @@
-<div class="section">
-<p>Hello {{currentUser.name}}!</p>
+<div class="section">    
+    <div class="columns is-full-height">
+        <div class="column">
+            <aside class="menu">
+                
+                <!-- Search Users -->
+                <app-search-bar></app-search-bar>
+                <hr>
+                <!-- Groups -->
+                <div>
+                    <p class="menu-label">
+                        Groups
+                    </p>
+                    <!-- ADD groups list-->
+                </div>
+                <hr>
+                <!-- Contacts -->
+                <div>
+                    <p class="menu-label">
+                        Contacts
+                    </p>
+                    <!-- ADD contacts list -->
+                </div>
+            </aside>
+        </div>
+
+        <div class="column is-three-quarters">
+            <p>Hello {{currentUser.name}}!</p>
+        </div>
+    </div>
 </div>

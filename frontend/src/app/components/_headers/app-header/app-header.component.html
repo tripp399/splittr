@@ -4,6 +4,13 @@
             Splittr
         </a>
     </div>
+
+    <div class="navbar-start" (click)="toggleModal()">
+        <a class="navbar-item">
+            Create Group
+        </a>
+    </div>
+
     <div class="navbar-end">
         <div class="navbar-item">
             <div class = buttons>
@@ -11,6 +18,24 @@
                     Log Out
                 </button>
             </div>
+        </div>
+    </div>
+
+    <div class="modal" [ngClass]="{'is-active': modalToggle === true}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Create Group</p>
+                <button class="delete" aria-label="close" (click)="toggleModal()"></button>
+            </header>
+            <section class="modal-card-body">
+                <!-- Content ... -->
+                <app-search-bar (searchEvent)="receiveValue($event)"></app-search-bar>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success">Save changes</button>
+                <button class="button" (click)="toggleModal()">Cancel</button>
+            </footer>
         </div>
     </div>
 </div>
