@@ -4,13 +4,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { ModelMapper } from '../_helpers/model-mapper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  apiUrl: string = 'http://localhost:5000';
+  private apiUrl = 'http://localhost:5000';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -23,11 +24,14 @@ export class UserService {
       return of([]);
     }
     const options = { params: new HttpParams().set('name', filter.name)};
-    return this.http.get<any[]>(this.apiUrl + '/users', options)
+    return this.http.get<User[]>(this.apiUrl + '/users', options)
       .pipe(
         map(response => {
+          response = response.map((item) => {
+            return new ModelMapper(User).map(item);
+          });
           response = response.filter(user => {
-            return user.user_id !== this.authService.currentUserValue.id;
+            return user.id !== this.authService.currentUserValue.id;
            });
           return response;
         })

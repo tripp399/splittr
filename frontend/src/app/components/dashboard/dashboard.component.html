@@ -2,9 +2,11 @@
     <div class="columns is-full-height">
         <div class="column">
             <aside class="menu">
-                
-                <!-- Search Users -->
-                <app-search-bar></app-search-bar>
+                <div>
+                    <a clas="menu-label">
+                        Expenses
+                    </a>
+                </div>
                 <hr>
                 <!-- Groups -->
                 <div>
@@ -12,6 +14,13 @@
                         Groups
                     </p>
                     <!-- ADD groups list-->
+                    <div class="list">
+                        <ul>
+                            <li class="list-item" *ngFor="let group of currentUser.groups">
+                                <span>{{group.name}}</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <hr>
                 <!-- Contacts -->

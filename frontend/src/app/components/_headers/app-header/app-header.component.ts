@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { GroupService } from 'src/app/services/group.service';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +13,16 @@ import { Router } from '@angular/router';
 export class AppHeaderComponent implements OnInit {
 
   modalToggle: boolean = false;
-  searchResult: any;
+  searchResult: User;
+  groupName: FormControl;
+  groupUsers = new Set<User>();
 
-  constructor(private authenticationService: AuthService, private router: Router) { }
+  constructor(
+    private router: Router, private authenticationService: AuthService,
+    private groupService: GroupService
+  ) {
+    this.groupName = new FormControl();
+  }
 
   ngOnInit() {
   }
@@ -25,12 +35,28 @@ export class AppHeaderComponent implements OnInit {
 
   toggleModal() {
     this.modalToggle = !this.modalToggle;
+    this.groupUsers.clear();
   }
 
   receiveValue($event) {
     this.searchResult = $event;
-    console.log('search result');
-    console.log(this.searchResult);
   }
+
+  addUserToCreateGroup() {
+    this.groupUsers.add(this.searchResult);
+  }
+
+  createGroup() {
+    this.groupService.createGroup(this.groupName.value, Array.from(this.groupUsers))
+      .subscribe(
+        res => {
+          this.authenticationService.addGroupToCurrentUser(res);
+        },
+        err => {
+        }
+      );
+    this.modalToggle = false;
+  }
+
 
 }

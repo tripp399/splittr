@@ -19,6 +19,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authenticationServce.currentUser.subscribe(
+      currentUser => this.currentUser = currentUser
+    );
   }
 
 }
