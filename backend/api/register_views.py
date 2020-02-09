@@ -16,6 +16,7 @@ def register_views(app: Flask, api):
 
     @app.errorhandler(Exception)
     def error_handler(error: Exception):
+        print(error)
         return Response("Backend Error", 500)
 
     @app.errorhandler(APIException)

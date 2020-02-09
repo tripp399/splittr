@@ -5,6 +5,7 @@ def add_resource(api):
     # todo
     api.add_resource(Login, '/login')
     api.add_resource(Signup, '/signup')
+    api.add_resource(SearchUser, '/users')
 
 class Login(AuthViewsMethods, Resource):
     def post(self):
@@ -13,3 +14,8 @@ class Login(AuthViewsMethods, Resource):
 class Signup(AuthViewsMethods, Resource):
     def post(self):
         return self.signup()
+
+class SearchUser(AuthViewsMethods, Resource):
+    def get(self):
+        print('#### SearchUser.get')
+        return self.search_user()
