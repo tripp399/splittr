@@ -15,9 +15,11 @@ export class AuthService {
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem('currentUser'))
-    );
+    const user: User = JSON.parse(localStorage.getItem('currentUser'));
+    if (user) {
+      user.groups = new Set<Group>();
+    }
+    this.currentUserSubject = new BehaviorSubject<User>(user);
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -34,7 +36,6 @@ export class AuthService {
             localStorage.setItem('currentUser', JSON.stringify(user));
             this.currentUserSubject.next(user);
           }
-
           return user;
         })
       );
@@ -47,6 +48,7 @@ export class AuthService {
 
   addGroupToCurrentUser(group: Group) {
     const user = this.currentUserValue;
+    console.log(user);
     user.groups.add(group);
     this.currentUserSubject.next(user);
   }
