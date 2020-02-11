@@ -55,7 +55,8 @@ export class AppHeaderComponent implements OnInit {
     this.groupService.createGroup(this.groupName.value, Array.from(this.groupUsers))
       .subscribe(
         res => {
-          this.authenticationService.addGroupToCurrentUser(res);
+          // this.authenticationService.addGroupToCurrentUser(res);
+          console.log(res);
         },
         err => {
           console.log(err);

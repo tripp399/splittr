@@ -25,20 +25,27 @@ export class GroupService {
       );
   }
 
-  createGroup(name: string, members: User[]): Observable<Group> {
+  createGroup(name: string, members: User[]): Observable<string> {
     // TODO: FIX TO ADD CURRENT USER TO MEMBERS BEFORE CALLING METHOD
     members.push(this.authService.currentUserValue);
 
-    return this.http.put<Group>(this.apiUrl + '/groups', { name, members })
-      .pipe(
-        map(response => {
-          const group = new ModelMapper(Group).map(response);
-          console.log(group);
-          this.authService.addGroupToCurrentUser(group);
-          return group;
-        })
-      );
+    return this.http.put<string>(this.apiUrl + '/groups', { name, members });
   }
+
+  // createGroup(name: string, members: User[]): Observable<Group> {
+  //   // TODO: FIX TO ADD CURRENT USER TO MEMBERS BEFORE CALLING METHOD
+  //   members.push(this.authService.currentUserValue);
+
+  //   return this.http.put<Group>(this.apiUrl + '/groups', { name, members })
+  //     .pipe(
+  //       map(response => {
+  //         const group = new ModelMapper(Group).map(response);
+  //         console.log(group);
+  //         this.authService.addGroupToCurrentUser(group);
+  //         return group;
+  //       })
+  //     );
+  // }
 
   getUserGroups(userid: number): Observable<Group[]> {
     const options = { params: new HttpParams().set('userid', userid.toString()) };

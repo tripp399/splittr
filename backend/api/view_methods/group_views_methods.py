@@ -2,34 +2,20 @@ from api.base_view import EndpointDataHandler
 from api.models import Group, GroupMembership, User, Expense
 from api.database import db
 from api.utils.response_util import model_as_dict
+from api.logic.async_tasks import async_create_group
+
 
 class GroupViewsMethods(EndpointDataHandler):
     
     def create_group(self):
-        print('### ', self.data)
-        groupname = self.data['name']
-        members = self.data['members']
-        
         try:
-            group = Group(name=groupname)
-            memberships = []
-            for member in members:
-                group_membership = GroupMembership(user_id=member['id'])
-                group_membership.group = group
-                memberships.append(group_membership)
-
-            db.session.add(group)
-            for membership in memberships:
-                db.session.add(membership)
-
+            print(123123)
+            async_create_group.apply_async(args=[self.data], coutdown=10)
         except Exception as err:
             print(err)
             raise Exception()
-            
-        db.session.commit()
-        print('$$ {}'.format(group.group_id))
 
-        return model_as_dict(group), 200
+        return 'Group Created', 200
     
     def get_groups(self):
         userid = self.data['userid']
