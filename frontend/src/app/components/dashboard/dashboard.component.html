@@ -4,6 +4,12 @@
             <aside class="menu">
                 <div>
                     <a clas="menu-label">
+                        DashBoard
+                    </a>
+                </div>
+                <hr>
+                <div>
+                    <a clas="menu-label">
                         Expenses
                     </a>
                 </div>
@@ -17,7 +23,7 @@
                     <div class="list">
                         <ul>
                             <li class="list-item" *ngFor="let group of userGroups">
-                                <span>{{group.name}}</span>
+                                <a [routerLink]="['/group', group.id]">{{group.name}}</a>
                             </li>
                         </ul>
                     </div>

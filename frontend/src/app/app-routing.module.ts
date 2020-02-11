@@ -7,15 +7,18 @@ import { SignupComponent } from './components/signup/signup.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { SiteLayoutComponent } from './components/_layouts/site-layout/site-layout.component';
 import { AppLayoutComponent } from './components/_layouts/app-layout/app-layout.component';
+import { GroupComponent } from './components/group/group.component';
 
 const routes: Routes = [
   // App routes: Logged in state
   {
     path: '',
     component: AppLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'dash', pathMatch: 'full'},
-      { path: 'dash', component: DashboardComponent, canActivate: [AuthGuard] }
+      { path: 'dash', component: DashboardComponent },
+      { path: 'group/:id', component: GroupComponent }
     ]
   },
 

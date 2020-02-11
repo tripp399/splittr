@@ -1,4 +1,4 @@
-def row_as_dict(obj, exclude_cols=[]):
+def model_as_dict(obj, exclude_cols=[]):
     result = {}
     for col in obj.__table__.columns:
         if col.name in exclude_cols:

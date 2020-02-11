@@ -12,6 +12,7 @@ import { GroupService } from 'src/app/services/group.service';
 })
 export class AppHeaderComponent implements OnInit {
 
+  currentUser: User;
   modalToggle = false;
   searchResult: User;
   groupName: FormControl;
@@ -25,6 +26,9 @@ export class AppHeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authenticationService.currentUser.subscribe(
+      currentUser => this.currentUser = currentUser
+    );
   }
 
   logout() {
@@ -47,12 +51,15 @@ export class AppHeaderComponent implements OnInit {
   }
 
   createGroup() {
+    // this.groupUsers.add(this.currentUser);
     this.groupService.createGroup(this.groupName.value, Array.from(this.groupUsers))
       .subscribe(
         res => {
-          this.authenticationService.addGroupToCurrentUser(res);
+          // this.authenticationService.addGroupToCurrentUser(res);
+          console.log(res);
         },
         err => {
+          console.log(err);
         }
       );
     this.modalToggle = false;
