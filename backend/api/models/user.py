@@ -1,9 +1,10 @@
 from api.database import db
 from sqlalchemy import (
-    Column, Integer, 
+    Column, Integer,
     String
 )
 from sqlalchemy.orm import relationship
+
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -12,10 +13,9 @@ class User(db.Model):
     pw_hash = Column(String(64), nullable=False)
     name = Column(String(50), nullable=False)
     groups = relationship("GroupMembership", back_populates="user")
-
+    expenses = relationship("ExpenseShare", back_populates="user")
 
     def authenticate(self, pw_hash):
         if self.pw_hash == pw_hash:
             return True
-
         return False

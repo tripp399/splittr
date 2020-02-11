@@ -53,17 +53,9 @@ export class GroupComponent implements OnInit {
   }
 
   createExpense() {
-    console.log('Halo!');
-    const test = new Map<number, number>();
-    test.set(4, 14);
-    test.set(5, 20);
-    test.set(6, 8);
+    // console.log('Halo!');
 
-    const expense = new Expense();
-    expense.groupId = this.group$.id;
-    expense.shareMap = test;
-
-    this.groupService.createGroupExpense(expense).subscribe();
+    // this.groupService.createGroupExpense(expense).subscribe();
   }
 
 }

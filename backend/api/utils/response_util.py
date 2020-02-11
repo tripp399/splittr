@@ -8,3 +8,21 @@ def model_as_dict(obj, exclude_cols=[]):
         result.update({key: value})
 
     return result
+
+
+def map_result_to_dict(result):
+    if isinstance(result, list):
+        return map_array_to_dict(result)
+
+    rv = {}
+    keys = result.keys()
+    for key, val in zip(keys, result):
+        rv.update({key: val})
+    return rv
+
+
+def map_array_to_dict(arr):
+    rv = []
+    for element in arr:
+        rv.append(map_result_to_dict(element))
+    return rv

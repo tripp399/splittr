@@ -6,6 +6,8 @@ import { filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Group } from 'src/app/models/group';
 import { GroupService } from 'src/app/services/group.service';
+import { UserService } from 'src/app/services/user.service';
+import { Expense } from 'src/app/models/expense';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,11 +18,14 @@ export class DashboardComponent implements OnInit {
 
   currentUser: User;
   userGroups: Group[];
+  userDebts: [];
+  userCredits: [];
 
   constructor(
     private authenticationServce: AuthService,
     private groupService: GroupService,
-  ) {}
+    private userService: UserService,
+  ) { }
 
   ngOnInit() {
     this.authenticationServce.currentUser.subscribe(
@@ -34,6 +39,8 @@ export class DashboardComponent implements OnInit {
       }
     );
     this.getUserGroups();
+    this.getUserDebts();
+    this.getUserCredits();
   }
 
   getUserGroups() {
@@ -46,6 +53,28 @@ export class DashboardComponent implements OnInit {
         err => {
           console.log(err);
         }
+      );
+  }
+
+  getUserCredits() {
+    this.userService.getUserCredits(this.currentUser.id)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.userCredits = res;
+        },
+        err => console.log(err)
+      );
+  }
+
+  getUserDebts() {
+    this.userService.getUserDebts(this.currentUser.id)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.userDebts = res;
+        },
+        err => console.log(err)
       );
   }
 
