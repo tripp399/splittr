@@ -1,9 +1,7 @@
 import os
 import yaml
 import pytest
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from api.run import app, db as tdb
+from run import app, db as tdb
 from test.test_util import initilize_test_db
 
 test_db_uri = 'postgresql://myuser:mypass@localhost:5432/testdb'
