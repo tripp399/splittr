@@ -16,7 +16,7 @@ class UserExpense(UserViewsMethods, Resource):
 
 class UserExpenseList(UserViewsMethods, Resource):
     def get(self):
-        pass
+        return self.get_user_expenses();
 
     def put(self):
         return self.add_expense()

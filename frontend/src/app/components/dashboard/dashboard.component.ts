@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   userGroups: Group[];
   userDebts: [];
   userCredits: [];
+  userExpenses: Expense[];
 
   constructor(
     private authenticationServce: AuthService,
@@ -41,6 +42,7 @@ export class DashboardComponent implements OnInit {
     this.getUserGroups();
     this.getUserDebts();
     this.getUserCredits();
+    this.getUserExpenses()
   }
 
   getUserGroups() {
@@ -73,6 +75,17 @@ export class DashboardComponent implements OnInit {
         res => {
           console.log(res);
           this.userDebts = res;
+        },
+        err => console.log(err)
+      );
+  }
+
+  getUserExpenses() {
+    this.userService.getUserExpenses(this.currentUser.id)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.userExpenses = res;
         },
         err => console.log(err)
       );

@@ -1,3 +1,6 @@
+from api.database import db
+
+
 def model_as_dict(obj, exclude_cols=[]):
     result = {}
     for col in obj.__table__.columns:
@@ -17,7 +20,10 @@ def map_result_to_dict(result):
     rv = {}
     keys = result.keys()
     for key, val in zip(keys, result):
-        rv.update({key: val})
+        if isinstance(val, db.Model):
+            rv.update({key: model_as_dict(val)})
+        else:
+            rv.update({key: val})
     return rv
 
 

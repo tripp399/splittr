@@ -51,9 +51,13 @@ export class UserService {
     const options = { params: new HttpParams().set('userid', userId) };
     return this.http.get<Expense[]>(this.apiUrl + '/users/expenses', options)
       .pipe(
-        map(response => response.map((item) =>
-          new ModelMapper(Expense).map(item))
-        )
+        map(response => {
+          console.log(response)
+          response = response.map((item) => {
+            return new ModelMapper(Expense).map(item);
+          });
+          return response;
+        })
       );
   }
 
