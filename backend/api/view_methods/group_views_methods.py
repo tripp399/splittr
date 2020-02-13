@@ -9,7 +9,6 @@ class GroupViewsMethods(EndpointDataHandler):
     
     def create_group(self):
         try:
-            print(123123)
             async_create_group.apply_async(args=[self.data], coutdown=10)
         except Exception as err:
             print(err)

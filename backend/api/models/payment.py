@@ -14,7 +14,7 @@ class Payment(db.Model):
     payer = Column(Integer, nullable=False)
     payee = Column(Integer, nullable=False)
     group_id = Column(Integer)
-    timestamp = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.time)
+    timestamp = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
 
     __table_args__ = (
         ForeignKeyConstraint(['group_id'], ['group.group_id']),

@@ -1,6 +1,6 @@
 import { propertyMap } from '../_helpers/model-mapper';
 
-enum SplitType {
+export enum SplitType {
     EQUAL = 'equal',
     EXACT = 'exact',
     PERCENTAGE = 'percentage'
@@ -16,12 +16,13 @@ export class Expense {
     groupId: number;
     split: SplitType;
     timestamp: string;
-    shareMap: Map<number, number>;
+    // TODO: user userid instead
+    shareMap: Map<any, any>;
 
     constructor(id?: number, groupId?: number) {
         this.id = id;
         this.groupId = groupId;
-        this.shareMap = new Map<number, number>();
+        this.shareMap = new Map();
     }
 
     // TODO: convert to generic util function

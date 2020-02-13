@@ -5,9 +5,17 @@
         </a>
     </div>
 
-    <div class="navbar-start" (click)="toggleModal()">
-        <a class="navbar-item">
+    <div class="navbar-start">
+        <a class="navbar-item" (click)="toggleGroupModal()">
             Create Group
+        </a>
+        
+        <a class="navbar-item" (click)="toggleExpenseModal()">
+            Add Expense
+        </a>
+
+        <a class="navbar-item" (click)="togglePaymentModal()">
+            Record a payment
         </a>
     </div>
 
@@ -21,12 +29,12 @@
         </div>
     </div>
 
-    <div class="modal" [ngClass]="{'is-active': modalToggle === true}">
+    <div class="modal" [ngClass]="{'is-active': groupModalToggle === true}">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">Create Group</p>
-                <button class="delete" aria-label="close" (click)="toggleModal()"></button>
+                <button class="delete" aria-label="close" (click)="toggleGroupModal()"></button>
             </header>
 
             <section class="modal-card-body">
@@ -55,7 +63,110 @@
 
             <footer class="modal-card-foot">
                 <button class="button is-success" (click)="createGroup()">Create group</button>
-                <button class="button" (click)="toggleModal()">Cancel</button>
+                <button class="button" (click)="toggleGroupModal()">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal" [ngClass]="{'is-active': expenseModalToggle === true}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Add Expense</p>
+                <button class="delete" aria-label="close" (click)="toggleExpenseModal()"></button>
+            </header>
+
+            <section class="modal-card-body">
+                <!-- Title ... -->
+                <div class="field">
+                    <label class="label">
+                        Title
+                    </label>
+                    <div class="control">
+                        <input class="input" id="text" type="text" [formControl]="expenseTitle">
+                    </div>
+                </div>
+                <br />
+                <!-- Amount -->
+                <div class="field">
+                    <label class="label">
+                        Amount
+                    </label>
+                    <div class="control">
+                        <input class="input" id="text" type="text" [formControl]="expenseTotal">
+                    </div>
+                </div>
+                <br />
+
+                <!-- Expense Share Grid -->
+                <table class="table is-striped is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>User Name</th>
+                            <th>Share</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let userShare of userShareArray; let i = index">
+                            <td (click)="_deleteRow(i)">
+                                <a class="delete"></a>
+                            </td>
+                            <td>
+                                <input class="input" type="text" [(ngModel)]="userShareArray[i].userName">
+                            </td>
+                            <td>
+                                <input class="input" type="text" [(ngModel)]="userShareArray[i].share">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td (click)="_addRow(i)">
+                                <a class=""><b>+</b></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <footer class="modal-card-foot">
+                <button class="button is-success" (click)="addExpense()">Add Expense</button>
+                <button class="button" (click)="toggleExpenseModal()">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal" [ngClass]="{'is-active': paymentModalToggle === true}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Record a Payment</p>
+                <button class="delete" aria-label="close" (click)="togglePaymentModal()"></button>
+            </header>
+
+            <section class="modal-card-body">
+                <!-- Content ... -->
+                <div class="field">
+                    <label class="label">
+                        Note
+                    </label>
+                    <div class="control">
+                        <input class="input" id="text" type="text" [formControl]="paymentNote">
+                    </div>
+                    <label class="label">
+                        Amount
+                    </label>
+                    <div class="control">
+                        <input class="input" id="text" type="text" [formControl]="paymentAmount">
+                    </div>
+                </div>
+                <br />
+                <app-search-bar (searchEvent)="receiveValue($event)"></app-search-bar>
+                <hr class="navbar-divider">
+            </section>
+
+            <footer class="modal-card-foot">
+                <button class="button is-success" (click)="recordPayment()">Record Payment</button>
+                <button class="button" (click)="togglePaymentModal()">Cancel</button>
             </footer>
         </div>
     </div>

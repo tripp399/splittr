@@ -2,7 +2,8 @@ from flask import Flask
 
 from api.views import (
     auth_views,
-    group_views
+    group_views,
+    user_views
 )
 from flask import (
     jsonify, request, Response
@@ -12,6 +13,7 @@ from api.errors.api_exceptions import APIException
 def add_resource(api):
     auth_views.add_resource(api)
     group_views.add_resource(api)
+    user_views.add_resource(api)
 
 def register_views(app: Flask, api):
     add_resource(api)
