@@ -8,6 +8,7 @@ def add_resource(api):
     api.add_resource(UserCredits, '/users/expenses/credits')
     api.add_resource(UserDebts, '/users/expenses/debts')
     api.add_resource(ExpenseShares, '/users/expenseshares')
+    api.add_resource(UserPayments, '/users/payments')
 
 
 class ExpenseShares(UserViewsMethods, Resource):
@@ -39,3 +40,8 @@ class UserCredits(UserViewsMethods, Resource):
 class UserDebts(UserViewsMethods, Resource):
     def get(self):
         return self.get_user_debts()
+
+
+class UserPayments(UserViewsMethods, Resource):
+    def put(self):
+        return self.add_new_payment()

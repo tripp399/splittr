@@ -1,6 +1,6 @@
 import json
 from api.base_view import EndpointDataHandler
-from api.models import User, Expense, ExpenseShare, SplitType
+from api.models import User, Expense, ExpenseShare, SplitType, Payment
 from api.database import db
 from api.utils.response_util import *
 from sqlalchemy import func
@@ -118,3 +118,18 @@ class UserViewsMethods(EndpointDataHandler):
             raise err
 
         return '', 200
+
+    def add_new_payment(self):
+        try:
+            payment = Payment(note=self.data['note'], amount=self.data['amount'], payer=self.data['payer'],
+                              payee=self.data['payee'])
+            db.session.add(payment)
+            db.session.commit()
+        except Exception as err:
+            print(err)
+            raise err
+
+        return '', 200
+
+
+

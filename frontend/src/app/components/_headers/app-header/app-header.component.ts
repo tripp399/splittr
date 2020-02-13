@@ -7,6 +7,7 @@ import { GroupService } from 'src/app/services/group.service';
 import { ExpenseShare } from 'src/app/models/expense-share';
 import { UserService } from 'src/app/services/user.service';
 import { Expense, SplitType } from 'src/app/models/expense';
+import { Payment } from 'src/app/models/payment';
 
 @Component({
   selector: 'app-header',
@@ -18,10 +19,13 @@ export class AppHeaderComponent implements OnInit {
   currentUser: User;
   groupModalToggle = false;
   expenseModalToggle = false;
+  paymentModalToggle = false;
   searchResult: User;
   groupName: FormControl;
   expenseTitle: FormControl;
   expenseTotal: FormControl;
+  paymentNote: FormControl;
+  paymentAmount: FormControl;
   groupUsers = new Set<User>();
   expenseUsers = new Set<User>();
   userShareArray: Array<ExpenseShare> = [];
@@ -34,6 +38,8 @@ export class AppHeaderComponent implements OnInit {
     this.groupName = new FormControl();
     this.expenseTitle = new FormControl();
     this.expenseTotal = new FormControl();
+    this.paymentAmount = new FormControl();
+    this.paymentNote = new FormControl();
     this.userShareArray.push({userName: undefined, share: undefined});
   }
 
@@ -57,6 +63,10 @@ export class AppHeaderComponent implements OnInit {
 
   toggleExpenseModal() {
     this.expenseModalToggle = !this.expenseModalToggle;
+  }
+
+  togglePaymentModal() {
+    this.paymentModalToggle = !this.paymentModalToggle;
   }
 
   clearExpenseModal() {
@@ -128,6 +138,20 @@ export class AppHeaderComponent implements OnInit {
       this.userShareArray.splice(index, 1);
       return true;
     }
+  }
+
+  recordPayment() {
+    const newPayment = new Payment();
+    newPayment.note = this.paymentNote.value;
+    newPayment.amount = this.paymentAmount.value;
+    newPayment.payer = this.currentUser.id;
+    newPayment.payee = this.searchResult.id;
+
+    this.userService.recordPayment(newPayment)
+      .subscribe(
+        res => console.log(res),
+        err => console.log(err)
+      );
   }
 
 }

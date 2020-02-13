@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { ModelMapper } from '../_helpers/model-mapper';
 import { Expense } from '../models/expense';
+import { Payment } from '../models/payment';
 
 @Injectable({
   providedIn: 'root'
@@ -80,6 +81,11 @@ export class UserService {
   updateExpense(expense: Expense) {
     const data = JSON.stringify(expense.toCustomObj());
     return this.http.put<Expense>(this.apiUrl + '/users/expenseshares', data);
+  }
+
+  recordPayment(newPayment: Payment) {
+    const data = JSON.stringify(newPayment);
+    return this.http.put<Payment>(this.apiUrl + '/users/payments', data);
   }
 
 }
