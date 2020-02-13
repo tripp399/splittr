@@ -66,21 +66,6 @@ class UserViewsMethods(EndpointDataHandler):
 
         return map_result_to_dict(res), 200
 
-    # def get_user_expenses(self):
-    #     user_id = self.data['userid']
-    #
-    #     try:
-    #         sub = ExpenseShare.query.with_entities(ExpenseShare.expense_id) \
-    #             .filter(ExpenseShare.user_id == user_id).all()
-    #
-    #         res = db.session.query(Expense, ExpenseShare) \
-    #             .join(ExpenseShare, Expense.expense_id == ExpenseShare.expense_id) \
-    #             .filter(Expense.expense_id.in_(sub)) \
-    #             .first()
-    #     except Exception as err:
-    #         print(err)
-    #         raise err
-
     def get_user_expenses(self):
         print('getting user expenses')
         user_id = self.data['userid']
@@ -89,7 +74,8 @@ class UserViewsMethods(EndpointDataHandler):
             sub = ExpenseShare.query.with_entities(ExpenseShare.expense_id) \
                 .filter(ExpenseShare.user_id == 4).all()
             res = Expense.query.join(ExpenseShare, Expense.expense_id == ExpenseShare.expense_id)\
-                .filter(Expense.expense_id.in_(sub))\
+                .filter(Expense.expense_id.in_(sub)) \
+                .order_by(Expense.timestamp.desc()) \
                 .all()
 
             expenses = list(map(lambda expense: (model_as_dict(expense)), res))
@@ -101,5 +87,34 @@ class UserViewsMethods(EndpointDataHandler):
             exp['split'] = exp['split'].value
             exp['timestamp'] = exp['timestamp'].strftime("%m/%d/%Y, %H:%M:%S")
 
-        print(expenses)
         return expenses, 200
+
+    def get_expense_shares(self):
+        expense_id = self.data['expenseid']
+
+        try:
+            res = db.session.query(ExpenseShare, User.name).join(User, ExpenseShare.user_id == User.user_id)\
+                .filter(ExpenseShare.expense_id == expense_id).all()
+            # shares = list(map(lambda share: (model_as_dict(share)), res))
+            shares = map_result_to_dict(res)
+        except Exception as err:
+            print(err)
+            raise err
+
+        return shares, 200
+
+    def update_expense_shares(self):
+        expense_id = self.data['id']
+        share_map = self.data['shareMap']
+
+        try:
+            for user_id, share in share_map.items():
+                expenseShare = ExpenseShare.query.get((expense_id, user_id))
+                expenseShare.share = share
+
+            db.session.commit()
+        except Exception as err:
+            print(err)
+            raise err
+
+        return '', 200

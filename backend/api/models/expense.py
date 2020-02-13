@@ -46,8 +46,6 @@ class ExpenseShare(db.Model):
 
     expense_id = Column(Integer)
     user_id = Column(Integer)
-    # credit = Column(REAL, nullable=False)
-    # debit = Column(REAL, nullable=False)
     share = Column(REAL, nullable=False)
 
     __table_args__ = (

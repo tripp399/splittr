@@ -20,7 +20,7 @@ export class UserService {
     return this.http.post(this.apiUrl + '/signup', { username, name, pwHash });
   }
 
-  getUsersByName(filter: {name: string}): Observable<User[]> {
+  getUsersByName(filter: { name: string }): Observable<User[]> {
     if (!filter.name) {
       return of([]);
     }
@@ -33,7 +33,7 @@ export class UserService {
           });
           response = response.filter(user => {
             return user.id !== this.authService.currentUserValue.id;
-           });
+          });
           return response;
         })
       );
@@ -42,9 +42,9 @@ export class UserService {
   addExpense(expense: Expense) {
     const data = JSON.stringify(expense.toCustomObj());
     return this.http.put<number>(this.apiUrl + '/users/expenses', data);
-      // .pipe(
-      //   map(response => new ModelMapper(Expense).map(response))
-      // );
+    // .pipe(
+    //   map(response => new ModelMapper(Expense).map(response))
+    // );
   }
 
   getUserExpenses(userId): Observable<Expense[]> {
@@ -66,8 +66,20 @@ export class UserService {
     return this.http.get<[]>(this.apiUrl + '/users/expenses/credits', options);
   }
 
+
   getUserDebts(userId) {
     const options = { params: new HttpParams().set('userid', userId) };
     return this.http.get<[]>(this.apiUrl + '/users/expenses/debts', options);
   }
+
+  getExpenseShares(id: number) {
+    const options = { params: new HttpParams().set('expenseid', id.toString()) };
+    return this.http.get<any[]>(this.apiUrl + '/users/expenseshares', options);
+  }
+
+  updateExpense(expense: Expense) {
+    const data = JSON.stringify(expense.toCustomObj());
+    return this.http.put<Expense>(this.apiUrl + '/users/expenseshares', data);
+  }
+
 }

@@ -7,6 +7,15 @@ def add_resource(api):
     api.add_resource(UserExpenseList, '/users/expenses')
     api.add_resource(UserCredits, '/users/expenses/credits')
     api.add_resource(UserDebts, '/users/expenses/debts')
+    api.add_resource(ExpenseShares, '/users/expenseshares')
+
+
+class ExpenseShares(UserViewsMethods, Resource):
+    def get(self):
+        return self.get_expense_shares()
+
+    def put(self):
+        return self.update_expense_shares()
 
 
 class UserExpense(UserViewsMethods, Resource):
@@ -16,7 +25,7 @@ class UserExpense(UserViewsMethods, Resource):
 
 class UserExpenseList(UserViewsMethods, Resource):
     def get(self):
-        return self.get_user_expenses();
+        return self.get_user_expenses()
 
     def put(self):
         return self.add_expense()

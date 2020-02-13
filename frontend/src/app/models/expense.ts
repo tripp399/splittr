@@ -17,12 +17,12 @@ export class Expense {
     split: SplitType;
     timestamp: string;
     // TODO: user userid instead
-    shareMap: Map<string, number>;
+    shareMap: Map<any, any>;
 
     constructor(id?: number, groupId?: number) {
         this.id = id;
         this.groupId = groupId;
-        this.shareMap = new Map<string, number>();
+        this.shareMap = new Map();
     }
 
     // TODO: convert to generic util function
