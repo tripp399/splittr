@@ -21,6 +21,7 @@ import { SiteHeaderComponent } from './components/_headers/site-header/site-head
 import { AppLayoutComponent } from './components/_layouts/app-layout/app-layout.component';
 import { SiteLayoutComponent } from './components/_layouts/site-layout/site-layout.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { GroupComponent } from './components/group/group.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     AppLayoutComponent,
     SiteLayoutComponent,
     SearchBarComponent,
+    GroupComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -1,10 +1,10 @@
-<div class="section">    
+<div class="section">
     <div class="columns is-full-height">
         <div class="column">
             <aside class="menu">
                 <div>
-                    <a clas="menu-label">
-                        Expenses
+                    <a class="menu-label">
+                        DashBoard
                     </a>
                 </div>
                 <hr>
@@ -17,7 +17,7 @@
                     <div class="list">
                         <ul>
                             <li class="list-item" *ngFor="let group of userGroups">
-                                <span>{{group.name}}</span>
+                                <a [routerLink]="['/group', group.id]">{{group.name}}</a>
                             </li>
                         </ul>
                     </div>
@@ -35,6 +35,128 @@
 
         <div class="column is-three-quarters">
             <p>Hello {{currentUser.name}}!</p>
+            <!-- User Dues -->
+            <section class="section">
+                <div class="columns">
+                    <div class="column">
+                        <p>You Owe</p>
+                        <table class="table is-striped is-fullwidth">
+                            <tbody>
+                                <tr *ngFor="let userDebt of userDebts; let i = index">
+                                    <td>
+                                        {{userDebt.name}}
+                                    </td>
+                                    <td>
+                                        ${{userDebt.amount}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="column">
+                        <p>You Get Back</p>
+                        <table class="table is-striped is-fullwidth">
+                            <tbody>
+                                <tr *ngFor="let userCredit of userCredits; let i = index">
+                                    <td>
+                                        {{userCredit.name}}
+                                    </td>
+                                    <td>
+                                        ${{userCredit.amount}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <!-- User Expenses -->
+            <section class="section">
+                <p>Your Expenses</p>
+                <table class="table is-hoverable is-striped is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Amount</th>
+                            <th>Payed by</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expense of userExpenses">
+                            <td>
+                                <a (click)="openExpenseModal(expense)">
+                                    {{expense.title}}
+                                </a>
+                            </td>
+                            <td>
+                                ${{expense.total}}
+                            </td>
+                            <td>
+                                Payed by: {{expense.payer}}
+                            </td>
+                            <td>
+                                {{expense.timestamp}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+
+    <div class="modal" [ngClass]="{'is-active': expenseModalToggle === true}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Expense {{modalExpense.title}}</p>
+                <button class="delete" aria-label="close" (click)="toggleExpenseModal()"></button>
+            </header>
+
+            <section class="modal-card-body">
+                <!-- Content ... -->
+                <div class="field">
+
+                    <table class="table is-hoverable is-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Share</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expenseShare of modalExpense.shareMap | keyvalue; let i = index">
+                                <td>
+                                    {{expenseShare.value.name}}
+                                </td>
+                                <td>
+                                    <table class="table is-fullwidth">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input class="input" type="text" [(ngModel)]="expenseShare.value.share">
+                                                </td>
+                                                <td>
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" [(ngModel)]="expenseShare.value.freeze">
+                                                        Update
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <footer class="modal-card-foot">
+                <button class="button is-success" (click)="updateExpense()">Save</button>
+                <button class="button" (click)="calculateUpdatedShares()">Update</button>
+                <button class="button" (click)="toggleExpenseModal()">Cancel</button>
+            </footer>
         </div>
     </div>
 </div>

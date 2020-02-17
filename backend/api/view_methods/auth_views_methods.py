@@ -2,7 +2,7 @@ from api.base_view import EndpointDataHandler
 from api.models.user import User
 from api.errors.api_exceptions import IncorrectLoginException, DuplicateUsernameException
 from api.database import db
-from api.utils.response_util import row_as_dict
+from api.utils.response_util import model_as_dict
 from sqlalchemy import func
 
 class AuthViewsMethods(EndpointDataHandler):
@@ -48,7 +48,7 @@ class AuthViewsMethods(EndpointDataHandler):
 
         users = []
         for row in res:
-            user = row_as_dict(row, ['pw_hash'])
+            user = model_as_dict(row, ['pw_hash'])
             users.append(user)
 
         return users, 200
