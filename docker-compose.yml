@@ -1,17 +1,5 @@
 version: "2.1"
 services:
-  pgdb:
-    image: postgres:9.5.15
-    # build: db
-    container_name: pgdb
-    environment:
-      - DEBUG=true
-      - POSTGRES_USER=myuser
-      - POSTGRES_PASSWORD=mypass
-      - POSTGRES_DB=mydb
-    ports:
-    - "5432:5432"
-
   nginx:
     build: nginx
     container_name: nginx
@@ -36,3 +24,21 @@ services:
       - "4200:4200"
     depends_on:
       - backend
+
+  pgdb:
+    image: postgres:9.5.15
+    # build: db
+    container_name: pgdb
+    environment:
+      - DEBUG=true
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypass
+      - POSTGRES_DB=mydb
+    ports:
+    - "5432:5432"
+
+  redis:
+    image: redis:4.0.14
+    container_name: redis
+    ports:
+      - "6379:6379"
