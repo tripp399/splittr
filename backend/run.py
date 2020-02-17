@@ -22,5 +22,13 @@ from api.register_views import register_views
 
 register_views(app, api)
 
+class HelloWorld(Resource):
+    def get(self):
+        return {'hello': 'world'}
+
+api.add_resource(HelloWorld, '/api/hello')
+
+# app.run(host="0.0.0.0", debug=True)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)

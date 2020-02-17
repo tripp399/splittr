@@ -8,8 +8,9 @@ npm install --no-optional;
 export PATH="$PATH:$(realpath ./node_modules/.bin)";
 echo "export PATH=$PATH" >> ~/.bashrc;
 
-rm -rf dist/;
-echo "1" $(pwd)
-echo "2" $(ls)
+rm -rf dist/ ;
+# echo "1" $(pwd)
+# echo "2" $(ls)
+#ng --version
 npm run build;
-echo "3"
+# echo "3"

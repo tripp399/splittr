@@ -1,19 +1,37 @@
 version: "2.1"
 services:
-  db:
-    build: db
+  pgdb:
+    image: postgres:9.5.15
+    # build: db
+    container_name: pgdb
     environment:
       - DEBUG=true
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypass
+      - POSTGRES_DB=mydb
+    ports:
+    - "5432:5432"
+
+  nginx:
+    build: nginx
+    container_name: nginx
+    ports:
+    - "80:80"
+    depends_on:
+      - frontend
+      - backend
 
   backend:
     build: backend
+    container_name: backend
     ports:
       - "5000:5000"
     depends_on:
-      - db
+      - pgdb
 
   frontend:
     build: frontend
+    container_name: frontend
     ports:
       - "4200:4200"
     depends_on:
