@@ -1,4 +1,4 @@
-from api.run import celery, db
+from run import celery, db
 from api.models import Group, GroupMembership
 
 

@@ -4,7 +4,7 @@ import pytest
 from run import app, db as tdb
 from test.test_util import initilize_test_db
 
-test_db_uri = 'postgresql://myuser:mypass@localhost:5432/testdb'
+test_db_uri = 'postgresql://test@db:5432/testdb'
 
 @pytest.fixture(scope="session")
 def _test_app():
