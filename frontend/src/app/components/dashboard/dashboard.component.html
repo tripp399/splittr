@@ -80,6 +80,7 @@
                             <th>Amount</th>
                             <th>Payed by</th>
                             <th>Date</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,6 +98,9 @@
                             </td>
                             <td>
                                 {{expense.timestamp}}
+                            </td>
+                            <td>
+                                <button class="button" (click)="deleteExpense(expense)">Delete</button>
                             </td>
                         </tr>
                     </tbody>

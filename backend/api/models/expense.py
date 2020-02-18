@@ -38,7 +38,7 @@ class Expense(db.Model):
         ForeignKeyConstraint(['payer'], ['user.user_id'])
     )
 
-    users = relationship("ExpenseShare", back_populates="expense")
+    users = relationship("ExpenseShare", back_populates="expense", cascade="delete")
 
 
 class ExpenseShare(db.Model):
