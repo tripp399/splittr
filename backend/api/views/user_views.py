@@ -23,6 +23,9 @@ class UserExpense(UserViewsMethods, Resource):
     def get(self, expense_id):
         pass
 
+    def delete(self, expense_id):
+        self.delete_expense(expense_id)
+
 
 class UserExpenseList(UserViewsMethods, Resource):
     def get(self):

@@ -13,7 +13,7 @@ class User(db.Model):
     pw_hash = Column(String(64), nullable=False)
     name = Column(String(50), nullable=False)
     groups = relationship("GroupMembership", back_populates="user")
-    expenses = relationship("ExpenseShare", back_populates="user")
+    expenses = relationship("ExpenseShare", back_populates="user", cascade="delete")
 
     def authenticate(self, pw_hash):
         if self.pw_hash == pw_hash:

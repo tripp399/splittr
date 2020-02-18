@@ -83,6 +83,12 @@ export class UserService {
     return this.http.put<Expense>(this.apiUrl + '/users/expenseshares', data);
   }
 
+  deleteExpense(expenseId: number) {
+    // const data = JSON.stringify(expense.toCustomObj());
+    // const options = { params: new HttpParams().set('expenseid', expenseId.toString()) };
+    return this.http.delete(this.apiUrl + '/users/expense/' + expenseId.toString());
+  }
+
   recordPayment(newPayment: Payment) {
     const data = JSON.stringify(newPayment);
     return this.http.put<Payment>(this.apiUrl + '/users/payments', data);

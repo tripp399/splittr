@@ -36,6 +36,17 @@ class UserViewsMethods(EndpointDataHandler):
             db.session.commit()
         return expense.expense_id, 200
 
+    def delete_expense(self, expense_id):
+        try:
+            expense = Expense.query.filter(Expense.expense_id == expense_id).first()
+            db.session.delete(expense)
+            db.session.commit()
+        except Exception as err:
+            print(err)
+            raise err
+
+        return '', 200
+
     def get_user_credits(self):
         user_id = self.data['userid']
 
