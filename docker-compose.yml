@@ -1,14 +1,14 @@
 version: "2.1"
 services:
   pgdb:
-    image: postgres:9.5.15
-    # build: db
+    # image: postgres:9.5.15
+    build: db
     container_name: pgdb
-    environment:
-      - DEBUG=true
-      - POSTGRES_USER=myuser
-      - POSTGRES_PASSWORD=mypass
-      - POSTGRES_DB=mydb
+    # environment:
+    #   - DEBUG=true
+    #   - POSTGRES_USER=myuser
+    #   - POSTGRES_PASSWORD=mypass
+    #   - POSTGRES_DB=mydb
     ports:
     - "5432:5432"
 

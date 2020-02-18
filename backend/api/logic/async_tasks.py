@@ -1,5 +1,5 @@
 from run import celery, db
-from api.models import Group, GroupMembership
+from api.models import Group, GroupMembership, Expense
 
 
 @celery.task
@@ -21,3 +21,12 @@ def async_create_group(data):
         raise err
 
     db.session.commit()
+
+@celery.task
+def async_delete_expense(expense_id):
+    try:
+        expense = Expense.query.filter(Expense.expense_id == expense_id).first()
+        db.session.delete(expense)
+        db.session.commit()
+    except Exception as err:
+        raise err
