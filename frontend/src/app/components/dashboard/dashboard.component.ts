@@ -117,7 +117,7 @@ export class DashboardComponent implements OnInit {
           }
           res.forEach((item) => {
             this.modalExpense.shareMap
-              .set(item.ExpenseShare.user_id, {share: item.ExpenseShare.share, name: item.name, freeze: false});
+              .set(item.ExpenseShare.user_id, { share: item.ExpenseShare.share, name: item.name, freeze: false });
           });
           console.log(this.modalExpense.shareMap);
         },
@@ -176,6 +176,26 @@ export class DashboardComponent implements OnInit {
     this.userService.updateExpense(this.modalExpense)
       .subscribe(
         res => console.log(res),
+        err => console.log(err)
+      );
+  }
+
+  deleteExpense(expense: Expense) {
+
+    if (expense.payer !== this.currentUser.id) {
+      console.log('Cannot delete as current User is not the creator of this expense');
+      return;
+    }
+
+    this.userService.deleteExpense(expense.id)
+      .subscribe(
+        res => {
+          console.log(res);
+          const index = this.userExpenses.indexOf(expense);
+          if (index !== -1) {
+            this.userExpenses.splice(index, 1);
+          }
+        },
         err => console.log(err)
       );
   }
