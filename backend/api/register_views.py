@@ -15,7 +15,7 @@ def add_resource(api):
     group_views.add_resource(api)
     user_views.add_resource(api)
 
-def register_views(app: Flask, api):
+def register_views(app, api):
     add_resource(api)
 
     @app.errorhandler(Exception)
